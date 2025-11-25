@@ -1,0 +1,38 @@
+﻿namespace MusicSynchronizer.Domain.Models.External.YouTube;
+
+public enum VideoCategoryValue
+{
+    Default = 0,
+    FilmAndAnimation = 1,
+    AutosAndVehicles = 2,
+    Music = 10,
+    PetsAndAnimals = 15,
+    Sports = 17,
+    ShortMovies = 18,
+    TravelAndEvents = 19,
+    Gaming = 20,
+    Videoblogging = 21,
+    PeopleAndBlogs = 22,
+    Comedy = 23,
+    Entertainment = 24,
+    NewsAndPolitics = 25,
+    HowtoAndStyle = 26,
+    Education = 27,
+    ScienceAndTechnology = 28,
+    NonprofitsAndActivism = 29,
+    Movies = 30,
+    AnimeOrAnimation = 31,
+    ActionOrAdventure = 32,
+    Classics = 33,
+    Comedy_ = 34,
+    Documentary = 35,
+    Drama = 36,
+    Family = 37,
+    Foreign = 38,
+    Horror = 39,
+    SciFiOrFantasy = 40,
+    Thriller = 41,
+    Shorts = 42,
+    Shows = 43,
+    Trailers = 44
+}
