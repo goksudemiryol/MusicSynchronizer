@@ -84,6 +84,11 @@ public class SyncService : ISyncService
             return serviceResult;
         }
 
+        serviceResult.Data = new SyncResponse(new Domain.Models.Playlist(srGetSpotifyPlaylist.Data.Id, _spotifyLinkProvider.GetPlaylistLink(srGetSpotifyPlaylist.Data.Id)))
+        {
+            CreatedPlaylist = new Domain.Models.Playlist(srCreateYouTubePlaylist.Data.Id, _youtubeLinkProvider.GetPlaylistLink(srCreateYouTubePlaylist.Data.Id))
+        };
+
         YouTubeModelsNS.SearchCriteria criteria = new(string.Empty, 50)
         {
             //I don't know, these parameters might be the reason of the wrong results.
@@ -104,8 +109,6 @@ public class SyncService : ISyncService
                 }
             }
         };
-
-        serviceResult.Data = new SyncResponse(new Domain.Models.Playlist(srGetSpotifyPlaylist.Data.Id, _spotifyLinkProvider.GetPlaylistLink(srGetSpotifyPlaylist.Data.Id)));
 
         foreach (var track in srGetSpotifyPlaylistItems.Data)
         {
@@ -137,7 +140,7 @@ public class SyncService : ISyncService
             }
 
             var matched = PickMatchedVideo(srListYouTubeVideos.Data, track);
-
+            eşleşme bulunmazsa geçici bir listeye alınıp daha sonra yeni bir foreach ile tekrar dönülebilir... ama en iyisi ayrı bir servise al bu işleri
             if (matched.video is null)
             {
                 //serviceResult.Success = false;
@@ -180,11 +183,18 @@ public class SyncService : ISyncService
 
     private static string CreateSearchQuery(SpotifyModelsNS.Track spotifyTrack)
     {
-        return $"{spotifyTrack.Name} {string.Join(' ', spotifyTrack.Artists.Take(3).Select(a => a.Name))}";
+        //return $"{spotifyTrack.Name} {string.Join(' ', spotifyTrack.Artists.Take(3).Select(a => a.Name))}";
+        return spotifyTrack.ExternalIds.Isrc;
     }
 
     private static (Video? video, string error) PickMatchedVideo(List<Video> videos, SpotifyModelsNS.Track track)
     {
+        if (videos.Count == 0)
+        {
+            //sebepleri de dönülecek...
+            return (null, "No videos were found in the YouTube search results.");
+        }
+
         var filtered = videos.Where(v => Math.Abs(v.ContentDetails.Duration.ConvertIso8601ToMilliSeconds() - track.DurationMs) < 1500);
 
         if (!filtered.Any())

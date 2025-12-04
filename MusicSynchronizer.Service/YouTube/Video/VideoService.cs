@@ -21,6 +21,15 @@ public class VideoService : IVideoService
     {
         ServiceResult<List<YTVideo>> serviceResult = new();
 
+        if (!ids.Any())
+        {
+            serviceResult.Success = false;
+            serviceResult.StatusCode = 400;
+            serviceResult.ErrorMessage = "No id provided.";
+
+            return serviceResult;
+        }
+
         string? path = YouTubeApiEndpoints.Video;
 
         UriHelpers.AppendQueryParameter(ref path, "id", string.Join(',', ids));

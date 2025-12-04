@@ -9,6 +9,8 @@ public class SyncResponse
 
     public Playlist SourcePlaylist { get; set; }
 
+    public Playlist? CreatedPlaylist { get; set; }
+
     public int SuccessfulCount { get => Successful.Count; }
 
     public int FailedCount { get => Failed.Count; }

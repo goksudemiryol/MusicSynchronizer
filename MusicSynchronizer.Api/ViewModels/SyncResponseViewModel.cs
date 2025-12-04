@@ -11,6 +11,8 @@ public class SyncResponseViewModel
 
     public Playlist SourcePlaylist { get; set; }
 
+    public Playlist? CreatedPlaylist { get; set; }
+
     public int SuccessfulCount { get => Successful.Count; }
 
     public int FailedCount { get => Failed.Count; }
@@ -24,6 +26,7 @@ public class SyncResponseViewModel
     {
         return new SyncResponseViewModel(syncResponse.SourcePlaylist)
         {
+            CreatedPlaylist = syncResponse.CreatedPlaylist,
             Successful = syncResponse.Successful,
             Failed = syncResponse.Failed
         };

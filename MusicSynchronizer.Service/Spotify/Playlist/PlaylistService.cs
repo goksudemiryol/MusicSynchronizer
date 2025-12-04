@@ -57,8 +57,8 @@ public class PlaylistService : IPlaylistService
 
         string? path = SpotifyApiEndpoints.GetPlaylistItems(playlistId);
 
-        //UriHelpers.AppendQueryParameter(ref uri, "fields", "limit,offset,next,total,items(track(id,name,duration_ms,href,artists(name),external_urls(spotify)))");
-        UriHelpers.AppendQueryParameter(ref path, "fields", "next,total,items(track(id,name,duration_ms,artists(name),external_urls(spotify)))");
+        //UriHelpers.AppendQueryParameter(ref uri, "fields", "limit,offset,next,total,items(track(id,name,duration_ms,href,artists(name),external_ids(isrc),external_urls(spotify)))");
+        UriHelpers.AppendQueryParameter(ref path, "fields", "next,total,items(track(id,name,duration_ms,artists(name),external_ids(isrc),external_urls(spotify)))");
         UriHelpers.AppendQueryParameter(ref path, "limit", limit);
         UriHelpers.AppendQueryParameter(ref path, "offset", offset);
 

@@ -30,6 +30,8 @@ public class Track
 
     public required List<Artist> Artists { get; set; }
 
+    public required ExternalIds ExternalIds { get; set; }
+
     public required ExternalUrls ExternalUrls { get; set; }
 
     public required int DurationMs { get; set; }
@@ -42,6 +44,14 @@ public class Artist
     public required string Name { get; set; }
 
     public string? Href { get; set; }
+}
+
+public class ExternalIds
+{
+    /// <summary>
+    /// International Standard Recording Code
+    /// </summary>
+    public required string Isrc { get; set; }
 }
 
 public class ExternalUrls
